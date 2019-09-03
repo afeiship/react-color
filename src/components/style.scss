@@ -1,0 +1,27 @@
+$react-color-options: () !default;
+
+.react-color {
+  &__item {
+    display: inline-block;
+    width: 40px;
+    height: 40px;
+    line-height: 40px;
+    box-sizing: border-box;
+    text-align: center;
+    vertical-align: middle;
+    margin-right: 4px;
+    margin-bottom: 4px;
+    border-radius: 4px;
+    color: #fff;
+    transition: transform 0.3s;
+    &:hover {
+      transform: scale(1.05);
+    }
+    &.is-active {
+      &:after {
+        content: "✔";
+        display: inline-block;
+      }
+    }
+  }
+}
