@@ -90,3 +90,4 @@ npm install -S afeiship/react-color
 
 ## resouces
 - http://casesandberg.github.io/react-color/
+- https://reactjs.org/blog/2018/03/27/update-on-async-rendering.html
