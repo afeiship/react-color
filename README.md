@@ -16,35 +16,77 @@ npm install -S afeiship/react-color
   ```
 2. import js
   ```js
-  import React from 'react';
+  import ReactColor from '../src/main';
   import ReactDOM from 'react-dom';
-  import ReactColor from 'react-color';
-  
-  // your app:
-  class App extends React.Component{
-    render(){
+  import React from 'react';
+  import './assets/style.scss';
+
+  class App extends React.Component {
+    constructor(inProps) {
+      super(inProps);
+      this.state = {
+        value: '#FCB900',
+        items: [
+          {
+            value: '#FF6900'
+          },
+          {
+            value: '#FCB900'
+          },
+          {
+            value: '#7BDCB5'
+          },
+          {
+            value: '#00D084'
+          },
+          {
+            value: '#8ED1FC'
+          },
+          {
+            value: '#0693E3'
+          },
+          {
+            value: '#ABB8C3'
+          },
+          {
+            value: '#EB144C'
+          },
+          {
+            value: '#F78DA7'
+          },
+          {
+            value: '#9900EF'
+          }
+        ]
+      };
+    }
+
+    _onChange = (e) => {
+      const { value } = e.target;
+      console.log('value:', value);
+      this.setState({ value });
+    };
+
+    render() {
+      const { items, value } = this.state;
       return (
-        <ReactColor />
-      )
+        <div className="app-container">
+          <h1>React-Color</h1>
+          <ReactColor items={items} value={value} onChange={this._onChange} />
+          <div className="color-show" style={{ background: value }}>
+            {value}
+          </div>
+        </div>
+      );
     }
   }
 
-  // render to dom:
-  ReactDOM.render(<App/>, document.getElementById('app'));
+  ReactDOM.render(<App />, document.getElementById('app'));
+
   ```
 
 ## documentation
 - https://afeiship.github.io/react-color/
 
 ## resouces
-- https://www.robinwieruch.de/minimal-react-webpack-babel-setup/
-- https://www.valentinog.com/blog/react-webpack-babel/
-- https://jestjs.io/docs/en/tutorial-react#snapshot-testing-with-mocks-enzyme-and-react-16
-- https://testing-library.com/docs/react-testing-library/api
-
-## todos
-- [ ] Add: semver number for every build files.
-- [ ] Add: need output css files.
-- [ ] Add: PWA support for docs.
-- [ ] Add: source.map file for dist(`you can upload for production debug`).
-- [ ] BUG: npm run dev will clean dist.
+- http://casesandberg.github.io/react-color/
