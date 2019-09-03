@@ -19,6 +19,7 @@ $react-color-options: () !default;
     }
     &.is-active {
       &:after {
+        color: #fff;
         content: "✔";
         display: inline-block;
       }
