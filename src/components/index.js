@@ -21,13 +21,15 @@ export default class extends Component {
 
   static defaultProps = {
     items: [],
-    onChange: noop
+    onChange: noop,
+    template: noop
   };
   /*===properties end===*/
 
   constructor(inProps) {
     const { value } = inProps;
     super(inProps);
+    this.itemTemplate = this.itemTemplate.bind(this);
     this.state = {
       value
     };
@@ -48,6 +50,20 @@ export default class extends Component {
       onChange({ target });
     });
   }
+  itemTemplate(inItem, inIndex) {
+    const { value } = this.state;
+    return (
+      <span
+        onClick={this._onClick}
+        data-color={inItem.value}
+        className={classNames(`${CLASS_NAME}__item`, {
+          'is-active': inItem.value === value
+        })}
+        style={{ background: inItem.value }}
+        key={inItem.value}
+      />
+    );
+  }
 
   _onClick = (inEvent) => {
     const { color } = inEvent.target.dataset;
@@ -63,24 +79,15 @@ export default class extends Component {
       onChange,
       ...props
     } = this.props;
-    const _value = this.state.value;
+    const itemTemplate = template === noop ? this.itemTemplate : template;
     return (
       <div
         data-component={CLASS_NAME}
         className={classNames(CLASS_NAME, className)}
         {...props}>
         {items.length > 0 &&
-          items.map((item) => {
-            return (
-              <span
-                onClick={this._onClick}
-                data-color={item.value}
-                className={classNames(`${CLASS_NAME}__item`, {
-                  'is-active': item.value === _value
-                })}
-                style={{ background: item.value }}
-                key={item.value}></span>
-            );
+          items.map((item, index) => {
+            return itemTemplate(item, index);
           })}
       </div>
     );

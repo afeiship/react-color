@@ -1,19 +1,22 @@
-$react-color-options: () !default;
+$react-color-options: (
+  font-size: 20px
+) !default;
 
 .react-color {
   &__item {
     display: inline-block;
-    width: 40px;
-    height: 40px;
-    line-height: 40px;
+    width: 2em;
+    height: 2em;
+    line-height: 2em;
     box-sizing: border-box;
     text-align: center;
     vertical-align: middle;
-    margin-right: 4px;
-    margin-bottom: 4px;
-    border-radius: 4px;
+    margin-right: 0.2em;
+    margin-bottom: 0.2em;
+    border-radius: 0.2em;
     color: #fff;
     transition: transform 0.3s;
+    user-select: none;
     &:hover {
       transform: scale(1.05);
     }
@@ -21,7 +24,7 @@ $react-color-options: () !default;
       &:after {
         // content: "✔";  // will not change color in ios
         // content:'\2714';
-        font-size: 20px;
+        font-size: 1em;
         content: "\2714\fe0e";
         display: inline-block;
       }

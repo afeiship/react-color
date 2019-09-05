@@ -1,3 +1,9 @@
+<p align="center">
+  <a href="https://afeiship.github.io/react-color/">
+    <img width="800" src="https://tva1.sinaimg.cn/large/006y8mN6gy1g6odj94518j30sy09eq39.jpg">
+  </a>
+</p>
+
 # react-color
 > Color picker for react.
 
