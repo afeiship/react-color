@@ -50,6 +50,7 @@ export default class extends Component {
       onChange({ target });
     });
   }
+
   itemTemplate(inItem, inIndex) {
     const { value } = this.state;
     return (
@@ -80,6 +81,7 @@ export default class extends Component {
       ...props
     } = this.props;
     const itemTemplate = template === noop ? this.itemTemplate : template;
+
     return (
       <div
         data-component={CLASS_NAME}
