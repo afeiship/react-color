@@ -1,30 +1,43 @@
-<p align="center">
-  <a href="https://afeiship.github.io/react-color/">
-    <img width="800" src="https://tva1.sinaimg.cn/large/006y8mN6gy1g6odj94518j30sy09eq39.jpg">
-  </a>
-</p>
-
 # react-color
 > Color picker for react.
 
-## install
+[![version][version-image]][version-url]
+[![license][license-image]][license-url]
+[![size][size-image]][size-url]
+[![download][download-image]][download-url]
+
+## installation
 ```shell
-npm install -S afeiship/react-color
+npm install -S @jswork/react-color
 ```
+
+## properties
+| Name      | Type   | Required | Default | Description                           |
+| --------- | ------ | -------- | ------- | ------------------------------------- |
+| className | string | false    | -       | The extended className for component. |
+| value     | string | false    | -       | The changed value.                    |
+| onChange  | func   | false    | noop    | The change handler.                   |
+| items     | array  | false    | []      | The color list.                       |
+| template  | func   | false    | -       | Render item template.                 |
+
 
 ## usage
 1. import css
   ```scss
-  @import "~react-color/style.scss";
+  @import "~@jswork/react-color/dist/style.css";
+
+  // or use sass
+  @import "~@jswork/react-color/dist/style.scss";
 
   // customize your styles:
   $react-color-options: ()
   ```
 2. import js
   ```js
-  import ReactColor from '../src/main';
-  import ReactDOM from 'react-dom';
+  import ReactDemokit from '@jswork/react-demokit';
   import React from 'react';
+  import ReactDOM from 'react-dom';
+  import ReactColor from '@jswork/react-color';
   import './assets/style.scss';
 
   class App extends React.Component {
@@ -33,36 +46,16 @@ npm install -S afeiship/react-color
       this.state = {
         value: '#FCB900',
         items: [
-          {
-            value: '#FF6900'
-          },
-          {
-            value: '#FCB900'
-          },
-          {
-            value: '#7BDCB5'
-          },
-          {
-            value: '#00D084'
-          },
-          {
-            value: '#8ED1FC'
-          },
-          {
-            value: '#0693E3'
-          },
-          {
-            value: '#ABB8C3'
-          },
-          {
-            value: '#EB144C'
-          },
-          {
-            value: '#F78DA7'
-          },
-          {
-            value: '#9900EF'
-          }
+          { value: '#FF6900' },
+          { value: '#FCB900' },
+          { value: '#7BDCB5' },
+          { value: '#00D084' },
+          { value: '#8ED1FC' },
+          { value: '#0693E3' },
+          { value: '#ABB8C3' },
+          { value: '#EB144C' },
+          { value: '#F78DA7' },
+          { value: '#9900EF' }
         ]
       };
     }
@@ -76,13 +69,14 @@ npm install -S afeiship/react-color
     render() {
       const { items, value } = this.state;
       return (
-        <div className="app-container">
-          <h1>React-Color</h1>
+        <ReactDemokit
+          className="p-3 app-container"
+          url="https://github.com/afeiship/react-color">
           <ReactColor items={items} value={value} onChange={this._onChange} />
           <div className="color-show" style={{ background: value }}>
             {value}
           </div>
-        </div>
+        </ReactDemokit>
       );
     }
   }
@@ -94,6 +88,18 @@ npm install -S afeiship/react-color
 ## documentation
 - https://afeiship.github.io/react-color/
 
-## resources
-- http://casesandberg.github.io/react-color/
-- https://reactjs.org/blog/2018/03/27/update-on-async-rendering.html
+
+## license
+Code released under [the MIT license](https://github.com/afeiship/react-color/blob/master/LICENSE.txt).
+
+[version-image]: https://img.shields.io/npm/v/@jswork/react-color
+[version-url]: https://npmjs.org/package/@jswork/react-color
+
+[license-image]: https://img.shields.io/npm/l/@jswork/react-color
+[license-url]: https://github.com/afeiship/react-color/blob/master/LICENSE.txt
+
+[size-image]: https://img.shields.io/bundlephobia/minzip/@jswork/react-color
+[size-url]: https://github.com/afeiship/react-color/blob/master/dist/react-color.min.js
+
+[download-image]: https://img.shields.io/npm/dm/@jswork/react-color
+[download-url]: https://www.npmjs.com/package/@jswork/react-color

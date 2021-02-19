@@ -1,46 +1,71 @@
-import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
-import PropTypes from 'prop-types';
+import noop from '@jswork/noop';
 import classNames from 'classnames';
-import noop from 'noop';
-import objectAssign from 'object-assign';
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
+import ReactList from '@jswork/react-list';
 
 const CLASS_NAME = 'react-color';
+const DEFAULT_TEMPLATE = ({ item, isActive, onChange }) => {
+  return (
+    <span
+      onClick={onChange}
+      data-value={item.value}
+      className={classNames(`${CLASS_NAME}__item`, {
+        'is-active': isActive()
+      })}
+      style={{ background: item.value }}
+      key={item.value}
+    />
+  );
+};
 
-export default class extends Component {
+export default class ReactColor extends Component {
   static displayName = CLASS_NAME;
-
-  /*===properties start===*/
+  static version = '__VERSION__';
   static propTypes = {
+    /**
+     * The extended className for component.
+     */
     className: PropTypes.string,
+    /**
+     * The changed value.
+     */
     value: PropTypes.string,
+    /**
+     * The change handler.
+     */
+    onChange: PropTypes.func,
+    /**
+     * The color list.
+     */
     items: PropTypes.array,
-    template: PropTypes.func,
-    onChange: PropTypes.func
+    /**
+     * Render item template.
+     */
+    template: PropTypes.func
   };
 
   static defaultProps = {
     items: [],
     onChange: noop,
-    template: noop
+    template: DEFAULT_TEMPLATE
   };
-  /*===properties end===*/
 
   constructor(inProps) {
     const { value } = inProps;
     super(inProps);
-    this.itemTemplate = this.itemTemplate.bind(this);
     this.state = {
       value
     };
   }
 
-  componentWillReceiveProps(inNextProps) {
+  shouldComponentUpdate(inNextProps) {
     const { value } = inNextProps;
     const _value = this.state.value;
     if (value !== _value) {
       this.change(value);
     }
+    return true;
   }
 
   change(inValue) {
@@ -51,24 +76,18 @@ export default class extends Component {
     });
   }
 
-  itemTemplate(inItem, inIndex) {
+  handleTemplate = ({ item, index }) => {
+    const { template } = this.props;
     const { value } = this.state;
-    return (
-      <span
-        onClick={this._onClick}
-        data-color={inItem.value}
-        className={classNames(`${CLASS_NAME}__item`, {
-          'is-active': inItem.value === value
-        })}
-        style={{ background: inItem.value }}
-        key={inItem.value}
-      />
-    );
-  }
+    const isActive = () => {
+      return value === item.value;
+    };
+    return template({ item, index, isActive, onChange: this.handleClick });
+  };
 
-  _onClick = (inEvent) => {
-    const { color } = inEvent.target.dataset;
-    this.change(color);
+  handleClick = (inEvent) => {
+    const { value } = inEvent.target.dataset;
+    this.change(value);
   };
 
   render() {
@@ -80,17 +99,13 @@ export default class extends Component {
       onChange,
       ...props
     } = this.props;
-    const itemTemplate = template === noop ? this.itemTemplate : template;
 
     return (
       <div
         data-component={CLASS_NAME}
         className={classNames(CLASS_NAME, className)}
         {...props}>
-        {items.length > 0 &&
-          items.map((item, index) => {
-            return itemTemplate(item, index);
-          })}
+        <ReactList virtual items={items} template={this.handleTemplate} />
       </div>
     );
   }
